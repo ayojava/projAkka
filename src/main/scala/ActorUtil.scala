@@ -23,6 +23,7 @@ class ArithmeticCalculatorActor extends Actor with ActorLogging{
     case Reset =>
       log.info(s" Resetting  num {$num} to 0 " )
       num = 0;
+      sender() ! num
 
     case Add(add) =>
       log.info(s"Adding  {$add} to  num {$num} " )

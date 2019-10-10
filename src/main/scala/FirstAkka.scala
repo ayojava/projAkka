@@ -36,6 +36,12 @@ object FirstAkka extends App {
     case Failure(exception)=> println("Something wrong has happened")
   }
 
+  private val futureOutput: Future[Int] = (arithmeticCalculatorActorRef ? Reset).mapTo[Int]
+  futureOutput.onComplete{
+    case Success(response) => println(s"Output of Operation ::::: $response")
+    case Failure(exception)=> println("Something wrong has happened")
+  }
+
   private val futureTerminated: Future[Terminated] = actorSystem.terminate()
 
   futureTerminated.onComplete{
