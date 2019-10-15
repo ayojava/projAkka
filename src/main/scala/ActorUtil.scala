@@ -16,13 +16,13 @@ class ArithmeticCalculatorActor extends Actor with ActorLogging{
 
   log.info("Called ArithmeticCalculator ")
   //internal state
-  var num: Int = 0;
+  var num: Int = 0
 
   //behaviour
   override def receive: Receive = {
     case Reset =>
       log.info(s" Resetting  num {$num} to 0 " )
-      num = 0;
+      num = 0
       sender() ! num
 
     case Add(add) =>
@@ -42,7 +42,7 @@ class ArithmeticCalculatorActor extends Actor with ActorLogging{
       num /= divide
 
     case Result =>
-      log.info(s"Returning result of previous calculation")
+      log.info(s"Returning result of previous calculation {$num}")
       sender() ! num
 
     case _ =>
