@@ -21,28 +21,28 @@ class ArithmeticCalculatorActor extends Actor with ActorLogging{
   //behaviour
   override def receive: Receive = {
     case Reset =>
-      log.info(s" Resetting  num {$num} to 0 " )
+      log.info(s" Resetting  ${num} to 0 " )
       num = 0
       sender() ! num
 
-    case Add(add) =>
-      log.info(s"Adding  {$add} to  num {$num} " )
-      num += add
+    case request: Add =>
+      log.info(s"Adding  ${request.num} to  ${num} " )
+      num += request.num
 
-    case Subtract(subtract) =>
-      log.info(s"Subtracting  {$subtract} from  num {$num} " )
-      num -= subtract
+    case request:Subtract =>
+      log.info(s"Subtracting  ${request.num} from   ${num} " )
+      num -= request.num
 
-    case Multiply(multiply) =>
-      log.info(s"Multiplying  {$multiply} to  num {$num} " )
-      num *= multiply
+    case request: Multiply =>
+      log.info(s"Multiplying  ${request.num} with  ${num} " )
+      num *= request.num
 
-    case Divide(divide) =>
-      log.info(s"Dividing  num {$num} by {$divide}    " )
-      num /= divide
+    case request:Divide=>
+      log.info(s"Dividing   ${num} by ${request.num}    " )
+      num /= request.num
 
     case Result =>
-      log.info(s"Returning result of previous calculation {$num}")
+      log.info(s"Returning result of previous calculation ${num}")
       sender() ! num
 
     case _ =>
