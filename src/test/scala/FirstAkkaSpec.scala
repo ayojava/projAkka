@@ -1,6 +1,6 @@
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import akka.testkit.{ImplicitSender, TestKit}
+import akka.testkit._
 import org.scalatest.{BeforeAndAfterAll, WordSpecLike}
 
 class FirstAkkaSpec extends TestKit(ActorSystem("FirstAkkaSpec")) with ImplicitSender
@@ -12,19 +12,29 @@ class FirstAkkaSpec extends TestKit(ActorSystem("FirstAkkaSpec")) with ImplicitS
 
   import ArithmeticCalculatorActor._
 
+  val probe = TestProbe()
+  val arithmeticCalculatorActorRef: ActorRef = system.actorOf(Props[ArithmeticCalculatorActor], "cal")
+
+
   "FirstAkka " should {
-    val arithmeticCalculatorActorRef: ActorRef = system.actorOf(Props[ArithmeticCalculatorActor])
 
     " return a 0 after calling reset " in {
         arithmeticCalculatorActorRef ! Reset
         expectMsg(0)
     }
 
-    "return 15 after calling Add(25) Subtract (10)" in {
-      arithmeticCalculatorActorRef ! Add(25)
+    "return add and remove values  " in {
+      arithmeticCalculatorActorRef ! Add(20)
+      expectMsg(Added)
+
+      arithmeticCalculatorActorRef ! Add(11)
+      expectMsg(Added)
+
       arithmeticCalculatorActorRef ! Subtract(10)
+      expectMsg(Subtracted)
+
       arithmeticCalculatorActorRef ! Result
-      expectMsg(15)
+      expectMsg(21)
     }
 
     "return 250 after calling Add(10) , Multiply (30)  Subtract (50)" in {
