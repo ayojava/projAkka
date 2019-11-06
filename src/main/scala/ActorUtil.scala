@@ -5,13 +5,17 @@ object ArithmeticCalculatorActor{
 
   
 
-  case object Reset
-  case object Result
+
+
+  //response Messages 
   case object Added
   case object Subtracted
   case object Multiplied 
   case object Divided 
 
+
+  case object Reset
+  case object Result
   case class Add(num : Int)
   case class Subtract(num : Int)
   case class Multiply(num : Int)
