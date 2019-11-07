@@ -22,12 +22,12 @@ object FirstAkka extends App {
 
   import ArithmeticCalculatorActor._
 
-  arithmeticCalculatorActorRef ! Add(29)
-  arithmeticCalculatorActorRef ! Add(29)
-  arithmeticCalculatorActorRef ! Subtract(3)
-  arithmeticCalculatorActorRef ! Multiply(30)
-  arithmeticCalculatorActorRef ! Divide(10)
-  arithmeticCalculatorActorRef ! Multiply(20)
+  arithmeticCalculatorActorRef ? Add(29)
+  arithmeticCalculatorActorRef ? Add(29)
+  arithmeticCalculatorActorRef ? Subtract(3)
+  arithmeticCalculatorActorRef ? Multiply(30)
+  arithmeticCalculatorActorRef ? Divide(10)
+  arithmeticCalculatorActorRef ? Multiply(20)
 
   private val futureResult: Future[Int] = (arithmeticCalculatorActorRef ? Result).mapTo[Int]
 
